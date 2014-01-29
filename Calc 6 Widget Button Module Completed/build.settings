@@ -1,0 +1,28 @@
+-- Supported values for orientation:
+-- portrait, portraitUpsideDown, landscapeLeft, landscapeRight
+
+settings = {
+	
+	orientation = {
+		default = "portrait",
+		supported = { "portrait", }
+	},
+	
+	iphone = {
+		plist = {
+			UIAppFonts = {"fonts/04B_03__.TTF", "fonts/7linedigital.ttf"},
+			CFBundleIconFile = "images/Icon.png",
+			CFBundleIconFiles = {"images/Icon.png", "images/Icon@2x.png", "images/Icon-72.png"},
+			UIStatusBarHidden = false,
+			UIPrerenderedIcon = true, -- set to false for "shine" overlay
+			UIApplicationExitsOnSuspend = true,
+		}
+	},
+	
+	--[[ For Android:
+	
+	androidPermissions = {
+  		"android.permission.INTERNET",
+  	},
+	]]--
+}
