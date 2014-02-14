@@ -57,14 +57,7 @@ local calculator = require( "calculator" )
 function on_button(event)
 	local key = event.target.id -- get the id of the key
 	local value = calculator.calculate( key )
-
 	display_text.text = value
-	
-	-- display_text:setReferencePoint( display.TopRightReferencePoint )
-	display_text.anchorX = 1
-	display_text.anchorY = 0
-	display_text.x = display.contentWidth - 10
-	display_text.y = 5
 end
 ------------------------------------------------------------------------------------------------
 

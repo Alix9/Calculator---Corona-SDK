@@ -71,21 +71,17 @@ local calculator = require( "calculator" )
 
 
 
-------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
 -- function handles button taps
-------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
 -- This function handles all buttons when they are pressed. 
 -- It figures out which key was pressed and calls the appropriate function above. 
 function on_button(event)
 	local key = event.target.id -- get the id of the key
 	local value = calculator.calculate( key )
 	display_txt.text = value
-	display_txt.anchorX = 1
-	display_txt.anchorY = 0
-	display_txt.x = display.contentWidth - ( margin + 10 )
-	display_txt.y = margin
 end
-------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
 
 
 
