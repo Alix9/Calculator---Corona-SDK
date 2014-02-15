@@ -95,12 +95,14 @@ local button_properties = {id="1",
 					    width=62, 
 					    height=62,
 					    label="1", 
-					    labelColor={ default={ 1, 1, 1, 1 }, over={ 0 } },
+					    labelColor={ default={ 0, 0, 0 }, over={ 0, 0, 0 } },
 					    offset=-2,
 					    fontSize=font_size, 
 					    font="04b03",
 						fontSize=32,
-					    onPress=on_button }
+					    onPress=on_button,
+					    defaultFile="button_up.png",
+					    overFile="button_down.png" }
 						
 -- Create all buttons. 
 -- For each button change the label and id properties of the button_properties table. 
@@ -167,12 +169,16 @@ local button_clear    = widget.newButton( button_properties )
 button_properties.label = "="
 button_properties.id = "="
 button_properties.height = 210
+button_properties.defaultFile = "button_up_tall.png"
+button_properties.overFile = "button_down_tall.png"
 local button_equal    = widget.newButton( button_properties )
 
 button_properties.label = "0"
 button_properties.id = "0"
-button_properties.width = 130
+button_properties.width = 134
 button_properties.height = button_height
+button_properties.defaultFile = "button_up_wide.png"
+button_properties.overFile = "button_down_wide.png"
 local button_0 = widget.newButton( button_properties )
 
 
