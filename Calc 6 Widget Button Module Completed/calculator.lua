@@ -1,20 +1,24 @@
 
 local M = {}
+-----------------------------------------------------------------------------------------
+-- These define the string used for operations by the calculator
+-- Your buttons should assign these strings as the id to each button.
+-----------------------------------------------------------------------------------------
+local DOT = "."			-- Decimal
+local ADD = "+"			-- Add
+local SUBTRACT = "-"	-- Subtract
+local MULTIPLY = "*"	-- Multiply
+local DIVIDE = "/"		-- Divide
+local EQUAL = "="		-- Equal
+local CLEAR = "c"		-- Clear
+local PERCENT = "%"		-- Percent -- value * current / 100
 
-local DOT = "."
-local ADD = "+"
-local SUBTRACT = "-"
-local MULTIPLY = "*"
-local DIVIDE = "/"
-local EQUAL = "="
-local CLEAR = "c"
+local total_digits = 9	-- This sets the total number of digits displayed by the calculator
 
 local value = 0
 local lastOperation = CLEAR
 local decimalPlace = 1.0
 local current = 0 
-
-local total_digits = 9
 
 
 
@@ -77,6 +81,8 @@ function pressOperation( op )
 		value = value / current
 	elseif lastOperation ~= EQUAL then 
 		value = current 
+	elseif lastOperation == PERCENT then 
+		value = value * current / 100
 	end 
 	
 	lastOperation = op
