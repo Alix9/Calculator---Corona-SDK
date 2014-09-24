@@ -56,7 +56,18 @@ display_txt.anchorX = 1
 display_txt.anchorY = 0
 display_txt:setTextColor(0, 0, 0) 							-- Set the color of the text
 display_txt.x = display.contentWidth - (margin + 10)			-- Position the text field
-display_txt.y = margin											-- 
+display_txt.y = margin	
+
+------------
+-- Display the array of operations
+local array_txt = display.newText({
+	text="-", 
+	font="Helvetica",
+	fontSize=14
+})				
+array_txt.x = display.contentWidth - 10
+array_txt.y = 80
+array_txt.anchorX = 1
 ------------------------------------------------------------------------------------------------
 
 
@@ -79,7 +90,23 @@ local calculator = require( "calculator" )
 function on_button(event)
 	local key = event.target.id -- get the id of the key
 	local value = calculator.calculate( key )
+	
+	local array = calculator.get_array()
+	local op_str = ""
+	for i = 1, #array do 
+		op_str = op_str .. array[i] .. " "
+	end 
+	-- print(op_str)
+	array_txt.text = op_str
+	
 	display_txt.text = value
+	
+	local w = 320 - (margin + 10)*2
+	if display_txt.width > w then 
+		display_txt.xScale = 320 / display_txt.width
+	else 
+		display_txt.xScale = 1
+	end 
 end
 -----------------------------------------------------------------------------------------
 

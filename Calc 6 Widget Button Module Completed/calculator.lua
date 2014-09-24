@@ -21,6 +21,10 @@ local decimalPlace = 1.0
 local current = 0 
 
 
+-- Save operations 
+local operations_array = {}
+
+
 
 -----------------------------------------------------------------------------------------
 -- define some functions to handle the calculator 
@@ -33,7 +37,7 @@ function update( n )				-- This function displays the value in the text field
 	-- ***
 	-- **********************************************************
 	-- For testing display the variables used for calculations
-	print(  "current???:" .. current .. " operator:" .. lastOperation .. " value:" .. value .. " decimal:" .. decimalPlace )
+	-- print(  "current???:" .. current .. " operator:" .. lastOperation .. " value:" .. value .. " decimal:" .. decimalPlace )
 	-- *********************************************************
 end 
 
@@ -59,9 +63,7 @@ function pressDot()
 	end 
 	
 	if lastOperation == CLEAR then 
-		-- ***********************
-		-- display_txt.text = "0."
-		-- ***********************
+		
 	end  
 	
 	if decimalPlace == 1.0 then 
@@ -69,8 +71,16 @@ function pressDot()
 	end 
 end 
 
--- Thi handles an operator
+-- This handles an operator
 function pressOperation( op ) 
+	
+	print("current:", current, "op", op, "value", value)
+	
+	if lastOperation ~= EQUAL then
+		operations_array[#operations_array+1] = current
+	end
+	operations_array[#operations_array+1] = op
+	
 	if lastOperation == ADD then 
 		value = value + current
 	elseif lastOperation == SUBTRACT then 
@@ -81,6 +91,7 @@ function pressOperation( op )
 		value = value / current
 	elseif lastOperation ~= EQUAL then 
 		value = current 
+		-- print("~= EQUAL")
 	elseif lastOperation == PERCENT then 
 		value = value * current / 100
 	end 
@@ -89,8 +100,14 @@ function pressOperation( op )
 	decimalPlace = 1.0
 	current = 0
 	
+	if op == EQUAL then 
+		print("*** value", value)
+		operations_array[#operations_array+1] = value
+	end 
+		
 	if op == CLEAR then 
 		value = 0
+		operations_array = {}
 	end 
 	
 	update( value )
@@ -99,10 +116,13 @@ end
 
 
 
-
+local function get_array()
+	return operations_array
+end 
+M.get_array = get_array
 
 ------------------------------------------------------------------------------------------------
--- function handles button taps
+-- function calculator key presses
 ------------------------------------------------------------------------------------------------
 -- This function handles all buttons when they are pressed. 
 -- It figures out which key was pressed and calls the appropriate function above. 
@@ -117,7 +137,45 @@ local function calculate( key )
 	end 
 	return current
 end
-
 M.calculate = calculate
+------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+-------------
+-- Experimenting
+local selectedNumber = 0
+local runningTotal = 0
+local method = ""
+local function calculate2(key)
+	if string.find("1234567890", key) then 
+		local n = tonumber(key)
+		selectedNumber = selectedNumber * 10 + n
+	else 
+		method = key
+	end 
+	
+end 
+M.calculate2 = calculate2
+-------------
+
+
+
+
+
+
+
+
+
+
+
+
 ------------------------------------------------------------------------------------------------
 return M
